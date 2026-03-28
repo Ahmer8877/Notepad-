@@ -42,16 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder:(context) => [
 
                 //item 1
-                PopupMenuItem(child: InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, RoutesHelper.settingScreen);
-                  },
-                  child: Text('Settings',style: TextStyle(fontWeight: FontWeight.bold)),
-                )),
+                PopupMenuItem(
+                    onTap: (){
+                      Navigator.pushNamed(context, RoutesHelper.settingScreen);
+                    },
+                    child: Text('Settings',style: TextStyle(fontWeight: FontWeight.bold))),
 
                 //item 2
 
-                PopupMenuItem(child: Column(children: [
+                PopupMenuItem(
+                    child: Column(children: [
                   Text('About',style: TextStyle(fontWeight: FontWeight.bold),),
                   Text('Version 1.2v',style: TextStyle(color: CupertinoColors.inactiveGray),)
                 ],
@@ -94,8 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                       );
                     },
-                    title: Text(note.title,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                    subtitle: Text(note.detail),
+                    title: Text(note.title,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),),
+                    subtitle: Text(note.detail,style: TextStyle(overflow: TextOverflow.ellipsis),),
                     trailing: IconButton(
                         onPressed: (){
                           provider.deleteNote(note);
