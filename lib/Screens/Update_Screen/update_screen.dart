@@ -4,62 +4,71 @@ import 'package:notepad/Models/NoteModel.dart';
 import 'package:notepad/Providers/Note_Provider/Note_Provider.dart';
 import 'package:provider/provider.dart';
 
-class NotemainScreen extends StatefulWidget {
-  const NotemainScreen({super.key});
+class UpdateScreen extends StatefulWidget {
+
+  final NoteModel note;
+  const UpdateScreen({super.key, required this.note});
 
   @override
-  State<NotemainScreen> createState() => _NotemainScreenState();
+  State<UpdateScreen> createState() => _UpdateScreenState();
 }
 
-class _NotemainScreenState extends State<NotemainScreen> {
+class _UpdateScreenState extends State<UpdateScreen> {
 
   TextEditingController title=TextEditingController();
   TextEditingController detail=TextEditingController();
 
   @override
+  void initState() {
+    title.text=widget.note.title;
+    detail.text=widget.note.detail;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    // the root of screen
+    //root of update screen
 
     return Scaffold(
-      //app bar
 
+      //app bar
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: InkWell(
-              onTap: (){
-                        Navigator.pop(context);
-          },
-          child: Image.asset('assets/icons/note.png')),
+            onTap: (){
+              Navigator.pop(context);
+            },
+              child: Image.asset('assets/icons/note.png')),
         ),
         title: Row(
           children: [
-            Text('Add',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),),
+            Text('Update',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),),
             Text('Note',style: TextStyle(fontWeight: FontWeight.bold,color: CupertinoColors.systemYellow),),
           ],
         ),
         actions: [
           Consumer<NoteProvider>(
-            builder: (context,provider,child) {
-              return IconButton(
-                  onPressed: () async{
-                    NoteModel note=NoteModel(title: title.text, detail: detail.text);
-                    provider.insertNote(note);
+              builder: (context,provider,child) {
+                return IconButton(
+                  onPressed: () {
+                    NoteModel note=NoteModel(id: widget.note.id,title: title.text.trim(),detail: detail.text.trim());
+                    provider.updateNote(note);
                     Navigator.pop(context);
                   },
                   icon: Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: Icon(Icons.check,fontWeight: FontWeight.bold,size: 45,),
                   ),
-              );
-            }
+                );
+              }
           )
         ],
       ),
 
-      //body ,main objects
+      //body with objects
 
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -69,7 +78,7 @@ class _NotemainScreenState extends State<NotemainScreen> {
               color: CupertinoColors.white,
               shadowColor: CupertinoColors.inactiveGray,
 
-              //list Tile
+              // list tile
 
               child: ListTile(
 

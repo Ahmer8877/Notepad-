@@ -18,6 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
    await Future.delayed(Duration(seconds: 3));
    Navigator.pushReplacementNamed(context, RoutesHelper.homeScreen);
  }
+
+ //init state
+
   @override
   void initState() {
     nextScreen();
@@ -26,9 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+   //root of splash screen
+
     return Scaffold(
 
-      //set the logo in splash screen
+      //body,set the logo in splash screen
 
       body: Center(
         child: Column(
